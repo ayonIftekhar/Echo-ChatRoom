@@ -1,6 +1,6 @@
 FROM maven:3.9-eclipse-temurin-17 AS build
 WORKDIR /app
-COPY EchoRoom/ .           # 👈 change this!
+COPY . .  # Copy everything inside EchoRoom/
 RUN mvn clean package -DskipTests
 
 FROM eclipse-temurin:17-jdk
