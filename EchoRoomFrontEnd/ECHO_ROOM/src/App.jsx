@@ -11,7 +11,7 @@ import { CreateRoom } from './pages/User/CreateRoom/CreateRoom'
 import { ListRooms } from './pages/User/ListRooms/ListRooms'
 import { MyRooms } from './pages/User/MyRooms/MyRooms'
 import { SingleRoom } from './pages/User/SingleRoom/SingleRoom'
-import { UserRoomProvider } from './context/RoomContext'
+import { UserRoomProvider } from './Context/RoomContext'
 
 function App() {
   return (
