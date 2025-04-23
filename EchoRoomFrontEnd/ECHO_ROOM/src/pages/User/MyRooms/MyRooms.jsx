@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Navbar } from "../../../components/Navbar/Navbar";
 import { getMyRooms } from "../../../BackendAPI/UserBackend";
 import { toast } from "react-toastify";
-import { UserRoomContext } from "../../../context/RoomContext";
+import { UserRoomContext } from "../../../Context/RoomContext";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
