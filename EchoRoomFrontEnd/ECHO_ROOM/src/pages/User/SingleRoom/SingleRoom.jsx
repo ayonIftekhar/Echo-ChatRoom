@@ -1,9 +1,8 @@
 import { useParams } from "react-router-dom";
 import { Navbar } from "../../../components/Navbar/Navbar";
 import { useState, useEffect, useRef } from "react";
-import { getRoomDetails } from "../../../BackendAPI/UserBackend";
+import { getRoomDetails, getRoomTexts } from "../../../BackendAPI/UserBackend";
 import { toast } from "react-toastify";
-import { getRoomTexts } from "../../../BackendAPI/UserBackend"; 
 import { connectChatRoom, sendMessage } from "../../../ChatSocket/ChatSocket";
 
 export function SingleRoom() {
