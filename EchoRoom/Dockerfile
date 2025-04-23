@@ -1,10 +1,10 @@
-FROM maven:3.9-eclipse-temurin-17 AS build
+FROM maven:3.9.4-eclipse-temurin-21 AS build
 WORKDIR /app
-COPY . .  # Copy everything inside EchoRoom/
-RUN mvn clean package -DskipTests
+COPY . /app
+RUN ./mvnw clean install -DskipTests
 
-FROM eclipse-temurin:17-jdk
+FROM eclipse-temurin:21
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
-EXPOSE 8080
+EXPOSE 8869
 ENTRYPOINT ["java", "-jar", "app.jar"]
