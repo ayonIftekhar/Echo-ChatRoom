@@ -60,6 +60,7 @@ export function SingleRoom() {
       }
     } catch {
       toast.error("Error in getting room texts");
+      setLast(true)
     } finally {
       setLoading(false);
     }
