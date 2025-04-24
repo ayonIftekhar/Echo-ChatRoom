@@ -15,8 +15,10 @@ export default function OAuthSuccess() {
           withCredentials: true,
         });
         setUser(res.data);
+        navigate("/");
       } catch (err) {
         navigate("/login");
+        setTimeout(() => window.location.reload(), 300);
         console.log("success handler er moddhe error ase");
         console.log(err);
       }
