@@ -59,7 +59,7 @@ export function SingleRoom() {
         cursorRef.current = response.data.cursor;
       }
     } catch {
-      toast.error("Error in getting room texts");
+      //toast.error("Error in getting room texts");
       setLast(true)
     } finally {
       setLoading(false);
