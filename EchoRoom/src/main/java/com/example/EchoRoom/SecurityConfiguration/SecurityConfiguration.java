@@ -89,7 +89,7 @@ public class SecurityConfiguration {
                 .authenticationProvider(getAuthenticationProvider())
                 .addFilterBefore(jwtAuthFilter , UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(auth ->
-                        auth.requestMatchers("/api/login","/api/register","/api/forgot-password","/api/reset-password/*","/ws/**","/api/ping","/api/me","/oauth-bridge.html").permitAll()
+                        auth.requestMatchers("/api/login","/api/register","/api/forgot-password","/api/reset-password/*","/ws/**","/api/ping","/api/me","/cookie-bridge").permitAll()
                                 .anyRequest().authenticated()
                         )
                 .oauth2Login(oauth2->oauth2.successHandler(googleOAuth2SuccessHandler))

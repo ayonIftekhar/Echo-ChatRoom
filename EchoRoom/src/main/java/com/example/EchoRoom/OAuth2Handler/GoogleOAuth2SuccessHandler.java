@@ -65,6 +65,7 @@ public class GoogleOAuth2SuccessHandler implements AuthenticationSuccessHandler 
 //                .build();
 //
 //        response.setHeader("Set-Cookie", cookie.toString());
-        response.sendRedirect("https://echo-chatroom.onrender.com/oauth-bridge.html?token=" + jwt);
+        String redirectBridge = "https://echo-chatroom.onrender.com/cookie-bridge?token=" + jwt;
+        response.sendRedirect(redirectBridge);
     }
 }
