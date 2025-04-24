@@ -22,7 +22,7 @@ import java.util.HashMap;
 public class GoogleOAuth2SuccessHandler implements AuthenticationSuccessHandler {
 
     @Value("${frontend.origin}")
-    private String BACKEND_ORIGIN;
+    private String FRONT_END_ORIGIN;
 
     @Autowired
     private UserRepository userRepository;
@@ -56,15 +56,15 @@ public class GoogleOAuth2SuccessHandler implements AuthenticationSuccessHandler 
 //        cookie.set
 //        cookie.setMaxAge(24 * 60 * 60);
 //        response.addCookie(cookie);
-        ResponseCookie cookie = ResponseCookie.from("jwt", jwt)
-                .httpOnly(true)
-                .secure(true)
-                .sameSite("None") // mandatory for cross-origin cookies
-                .path("/")
-                .maxAge(60 * 60)
-                .build();
-
-        response.setHeader("Set-Cookie", cookie.toString());
-        response.sendRedirect(BACKEND_ORIGIN+"/oauth-success");
+//        ResponseCookie cookie = ResponseCookie.from("jwt", jwt)
+//                .httpOnly(true)
+//                .secure(true)
+//                .sameSite("None") // mandatory for cross-origin cookies
+//                .path("/")
+//                .maxAge(60 * 60)
+//                .build();
+//
+//        response.setHeader("Set-Cookie", cookie.toString());
+        response.sendRedirect("https://echo-chatroom.onrender.com/oauth-bridge.html?token=" + jwt);
     }
 }
