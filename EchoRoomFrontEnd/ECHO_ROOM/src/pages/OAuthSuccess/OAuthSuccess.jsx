@@ -18,14 +18,16 @@ export default function OAuthSuccess() {
         navigate("/");
       } catch (err) {
         navigate("/login");
-        setTimeout(() => window.location.reload(), 300);
         console.log("success handler er moddhe error ase");
         console.log(err);
       }
     }
 
     useEffect(() => {
-      getUser();
+    const timer = setTimeout(() => {
+            getUser();
+        }, 300); 
+        return () => clearTimeout(timer);
     }, []);
 
     return (
