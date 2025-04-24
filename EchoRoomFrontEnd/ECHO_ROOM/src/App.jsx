@@ -25,7 +25,7 @@ function App() {
         <Route path="/oauth-success" element={<OAuthSuccess />} />
         <Route path="/logout" element={<RouteProtection><LogOut /></RouteProtection>} />
 
-        <Route path="/" element={<Login />} />
+        <Route path="/" element={<Home />} />
 
         {/* User Related paths */}
         <Route path="/user/chatrooms/create" element={<RouteProtection><CreateRoom /></RouteProtection>}/>
