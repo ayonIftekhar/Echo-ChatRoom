@@ -154,7 +154,7 @@ export function SingleRoom() {
             <div ref={topRef} className="mb-4"></div>
             {messages.map((msg, index) => (
               <div key={index} className="mb-3">
-                <strong className="text-secondary">{msg.sender}:</strong>{" "}
+                <strong className="text-secondary">{user.name}:</strong>{" "}
                 {msg.content}
               </div>
             ))}
