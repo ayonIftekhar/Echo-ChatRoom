@@ -20,7 +20,6 @@ export default function OAuthSuccess() {
         navigate("/");
       } catch (err) {
         navigate("/login");
-        console.log("success handler er moddhe error ase");
         console.log(err);
       }
     }
