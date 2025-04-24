@@ -20,6 +20,7 @@ export function Home(){
             setUser(res.data);
         }catch(err){
             navigate("/login");
+            console.log("here");
             console.log(err);
         }
     }
