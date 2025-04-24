@@ -55,11 +55,11 @@ public class GoogleOAuth2SuccessHandler implements AuthenticationSuccessHandler 
 //        cookie.set
 //        cookie.setMaxAge(24 * 60 * 60);
 //        response.addCookie(cookie);
-        String cookie = "jwt=" + jwt +
-                "; Path=/; HttpOnly; Secure; SameSite=None; Max-Age=" + (24 * 60 * 60);
 
-        response.setHeader("Set-Cookie", cookie);
+        response.setHeader("Set-Cookie",
+                "jwt=" + jwt + "; HttpOnly; Secure; SameSite=None; Path=/; Max-Age=86400; Domain=echo-chat-room.vercel.app");
 
-        response.sendRedirect(BACKEND_ORIGIN+"/oauth-success");
+        System.out.println("Set-Cookie header sent");
+        response.sendRedirect("https://echo-chat-room.vercel.app/oauth-success");
     }
 }
