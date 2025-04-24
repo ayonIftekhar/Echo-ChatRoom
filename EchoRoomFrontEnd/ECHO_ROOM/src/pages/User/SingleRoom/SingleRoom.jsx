@@ -48,6 +48,12 @@ export function SingleRoom() {
 
       if (response.status === 200) {
         const newMessages = response.data.messages;
+
+        if (newMessages.length === 0 || response.data.last === true) {
+          setLast(true); // ✅ force end scroll
+          return;
+        }
+
         setMessages((prev) => [...newMessages.reverse(), ...prev]);
         setLast(response.data.last);
         cursorRef.current = response.data.cursor;
