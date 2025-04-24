@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseCookie;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -55,11 +56,15 @@ public class GoogleOAuth2SuccessHandler implements AuthenticationSuccessHandler 
 //        cookie.set
 //        cookie.setMaxAge(24 * 60 * 60);
 //        response.addCookie(cookie);
+        ResponseCookie cookie = ResponseCookie.from("jwt", jwt)
+                .httpOnly(true)
+                .secure(true)
+                .sameSite("None") // mandatory for cross-origin cookies
+                .path("/")
+                .maxAge(60 * 60)
+                .build();
 
-        response.setHeader("Set-Cookie",
-                "jwt=" + jwt + "; HttpOnly; Secure; SameSite=None; Path=/; Max-Age=86400; Domain=echo-chat-room.vercel.app");
-
-        System.out.println("Set-Cookie header sent");
-        response.sendRedirect("https://echo-chat-room.vercel.app/oauth-success");
+        response.setHeader("Set-Cookie", cookie.toString());
+        response.sendRedirect(BACKEND_ORIGIN+"/oauth-success");
     }
 }
