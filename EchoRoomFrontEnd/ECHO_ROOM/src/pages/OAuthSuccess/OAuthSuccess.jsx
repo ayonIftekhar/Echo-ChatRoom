@@ -23,7 +23,7 @@ export default function OAuthSuccess() {
     }
 
     useEffect(() => {
-      //getUser();
+      getUser();
     }, []);
 
     return (
