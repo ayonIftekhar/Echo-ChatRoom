@@ -4,6 +4,7 @@ import com.example.EchoRoom.DatabaseEntity.UserEntity;
 import com.example.EchoRoom.MySqlRepositories.UserRepository;
 import com.example.EchoRoom.SecurityConfiguration.JwtUtility;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,14 @@ public class GoogleOAuth2SuccessHandler implements AuthenticationSuccessHandler 
 
         // Redirect to frontend
         String jwt = jwtUtility.generateToken(userRepository.findByEmail(email));
-        response.sendRedirect(BACKEND_ORIGIN+"/oauth-success/" + jwt);
+
+        Cookie cookie = new Cookie("jwt", jwt);
+        cookie.setHttpOnly(true);
+        cookie.setSecure(true);
+        cookie.setPath("/");
+        cookie.setMaxAge(24 * 60 * 60);
+        response.addCookie(cookie);
+
+        response.sendRedirect(BACKEND_ORIGIN+"/oauth-success");
     }
 }

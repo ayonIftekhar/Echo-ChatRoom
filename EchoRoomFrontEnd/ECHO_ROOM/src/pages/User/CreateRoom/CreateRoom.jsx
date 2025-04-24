@@ -22,6 +22,7 @@ export function CreateRoom(){
     async function submitHandler(e){
         e.preventDefault();
         
+        
         try{
             const response = await createRoom(room);
             if(response.status === 200){
@@ -33,8 +34,8 @@ export function CreateRoom(){
                     description : '',
                 })
             }
-        }catch(e){
-            toast.error(e.response.data);
+        }catch{
+            toast.error("Error Creating Room");
         }
     }
 

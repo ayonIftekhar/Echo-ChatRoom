@@ -3,6 +3,8 @@ package com.example.EchoRoom.SecurityConfiguration;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -55,5 +57,16 @@ public class JwtUtility {
 
     public boolean validateToken(UserDetails userDetails , String token){
         return userDetails.getUsername().equals( extractUserName(token) ) && !isExpired(token);
+    }
+
+    public String extractTokenFromRequest(HttpServletRequest request) {
+        if (request.getCookies() == null) return null;
+
+        for (Cookie cookie : request.getCookies()) {
+            if ("jwt".equals(cookie.getName())) {
+                return cookie.getValue();
+            }
+        }
+        return null;
     }
 }

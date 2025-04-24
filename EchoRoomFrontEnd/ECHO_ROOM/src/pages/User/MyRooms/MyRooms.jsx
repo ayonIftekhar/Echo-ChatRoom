@@ -2,12 +2,10 @@ import { useEffect, useRef, useState } from "react";
 import { Navbar } from "../../../components/Navbar/Navbar";
 import { getMyRooms } from "../../../BackendAPI/UserBackend";
 import { toast } from "react-toastify";
-import { UserRoomContext } from "../../../Context/RoomContext";
-import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 export function MyRooms(){
-    const { setUserRooms } = useContext(UserRoomContext);
+
     const [rooms, setRooms] = useState([]);
     const [last,setLast] = useState(false);
     const [page,setPage] = useState(0);
@@ -23,10 +21,10 @@ export function MyRooms(){
             const response = await getMyRooms(page);
             if (response.data.allRooms && response.data.allRooms.length > 0) {
                 setRooms(prev => [...prev, ...response.data.allRooms]);
-                setUserRooms(prev => [...prev, ...response.data.allRooms]);
             }
             setLast(response.data.last);
-        }catch{
+        }catch(e){
+            console.log(e);
             toast.error("Error retrieving rooms");
         }finally{
             setLoading(false);

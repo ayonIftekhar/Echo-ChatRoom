@@ -56,7 +56,7 @@ public class SecurityConfiguration {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOriginPatterns(List.of(FRONTEND_ORIGIN));
+        config.setAllowedOrigins(List.of(FRONTEND_ORIGIN));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
         config.setAllowCredentials(true);
@@ -89,7 +89,7 @@ public class SecurityConfiguration {
                 .authenticationProvider(getAuthenticationProvider())
                 .addFilterBefore(jwtAuthFilter , UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(auth ->
-                        auth.requestMatchers("/api/login","/api/register","/api/forgot-password","/api/reset-password/*","/ws/**").permitAll()
+                        auth.requestMatchers("/api/login","/api/register","/api/forgot-password","/api/reset-password/*","/ws/**","/api/ping","/api/me").permitAll()
                                 .anyRequest().authenticated()
                         )
                 .oauth2Login(oauth2->oauth2.successHandler(googleOAuth2SuccessHandler))

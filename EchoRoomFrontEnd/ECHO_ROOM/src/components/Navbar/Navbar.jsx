@@ -1,25 +1,24 @@
 import { AdminNavbar } from "./AdminNavbar";
 import { GuestNavbar } from "./GuestNavbar";
 import { UserNavbar } from "./UserNavbar";
-
+import { useContext } from "react";
+import { UserRoomContext } from "../../Context/RoomContext";
 
 export function Navbar(){
-
-    const token = sessionStorage.getItem("jwt");
-    const role = sessionStorage.getItem("role")
+    const {user} = useContext(UserRoomContext);
 
     return(
         <div>
             {
-                !token ? 
+                !user ? 
                     <GuestNavbar/> 
                     :
                     <>
                         {
-                            (role === 'ROLE_USER') ? 
-                                <UserNavbar />
+                            (user.role === 'ROLE_USER') ? 
+                                <UserNavbar name={user.username}/>
                                 :
-                                <AdminNavbar />
+                                <AdminNavbar name={user.username}/>
                         }
                     </>
                 

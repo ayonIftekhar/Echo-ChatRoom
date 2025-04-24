@@ -3,12 +3,12 @@ import { createContext, useState } from "react";
 export const UserRoomContext = createContext();
 
 export function UserRoomProvider({ children }) {
-    const [userRooms, setUserRooms] = useState([]);
+    const [user, setUser] = useState(null);
 
     return (
         <UserRoomContext.Provider value={{ 
-            userRooms, 
-            setUserRooms
+            user, 
+            setUser
         }}>
             {children}
         </UserRoomContext.Provider>

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import assets from "../../assets/assets";
 import "./Navbar.css";
 
-export function UserNavbar() {
+export function UserNavbar({name}) {
   return (
     <div
       className="d-flex flex-column bg-dark text-white vh-100 p-3"
@@ -97,7 +97,7 @@ export function UserNavbar() {
       {/* Footer */}
       <div className="text-white-50 small mt-auto">
         <hr className="text-white" />
-        <p className="mb-1 text-center">Logged in as User</p>
+        <p className="mb-1 text-center">Logged in as {name}</p>
       </div>
     </div>
   );

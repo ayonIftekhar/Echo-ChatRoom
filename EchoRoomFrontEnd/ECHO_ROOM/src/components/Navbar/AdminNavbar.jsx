@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import assets from "../../assets/assets";
 import './Navbar.css'
 
-export function AdminNavbar() {
+export function AdminNavbar({name}) {
   return (
     <div
       className="d-flex flex-column bg-dark text-white vh-100 p-3"

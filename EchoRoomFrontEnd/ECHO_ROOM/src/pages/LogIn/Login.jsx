@@ -1,14 +1,17 @@
-import { useState } from "react";
+import { useState,useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import assets from "../../assets/assets";
 import { login } from "../../BackendAPI/BackendApi";
+import { UserRoomContext } from "../../Context/RoomContext";
 
 
 function Login(){
 
     const api = import.meta.env.VITE_API_BASE_URL; 
     const title = import.meta.env.VITE_COMPANY_TITLE;
+
+    const {setUser} = useContext(UserRoomContext);
 
     const [userData , setUserData ] = useState({
       email : '',
@@ -31,13 +34,12 @@ function Login(){
 
     async function submitHandler(e){
       e.preventDefault();
-      
+      //console.log("here");
       try{
         const response = await login(userData);
+        //console.log("hi");
         if(response.status == 200){
-          sessionStorage.setItem("jwt" , response.data.token)
-          sessionStorage.setItem("role",response.data.role)
-          sessionStorage.setItem("name", response.data.name);
+          setUser(response.data);
           toast.success("logged in successfully!");
           navigate("/");
         }

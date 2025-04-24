@@ -1,24 +1,15 @@
 import { useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom"
-
-
-function OAuthSuccess(){
-
+import { useNavigate } from "react-router-dom";
+export default function OAuthSuccess() {
     const navigate = useNavigate();
 
-    const {token} = useParams('');
+    useEffect(() => {
+        navigate("/");
+    }, []);
 
-    useEffect(()=>{
-        sessionStorage.setItem("jwt",token);
-        console.log(token);
-        navigate("/home");
-    },[])
-
-    return(
+    return (
         <div>
-            
+            <h1>OAuth Success</h1>
         </div>
     )
 }
-
-export default OAuthSuccess;

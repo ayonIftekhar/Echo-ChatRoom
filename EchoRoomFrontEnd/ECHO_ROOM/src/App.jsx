@@ -12,6 +12,7 @@ import { ListRooms } from './pages/User/ListRooms/ListRooms'
 import { MyRooms } from './pages/User/MyRooms/MyRooms'
 import { SingleRoom } from './pages/User/SingleRoom/SingleRoom'
 import { UserRoomProvider } from './Context/RoomContext'
+import { LogOut } from './pages/LogOut/Logout'
 
 function App() {
   return (
@@ -21,7 +22,8 @@ function App() {
         <Route path="/register" element={<Register />}></Route>
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password/:token" element={<ResetPassword />} />
-        <Route path="/oauth-success/:token" element={<OAuthSuccess />} />
+        <Route path="/oauth-success" element={<OAuthSuccess />} />
+        <Route path="/logout" element={<RouteProtection><LogOut /></RouteProtection>} />
 
         <Route path="/" element={<Home />} />
 

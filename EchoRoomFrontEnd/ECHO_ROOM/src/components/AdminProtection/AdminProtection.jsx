@@ -1,9 +1,12 @@
-import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { UserRoomContext } from "../../Context/RoomContext";
+import Login from "../../pages/LogIn/Login";
+
 
 function AdminProtection({ children }) {
-  const role = sessionStorage.getItem("role");
+  const {user} = useContext(UserRoomContext);
 
-  if (role === 'ROLE_ADMIN') {
+  if (user.role === 'ROLE_ADMIN') {
     return <div>{children}</div>;
   } else {
     return (

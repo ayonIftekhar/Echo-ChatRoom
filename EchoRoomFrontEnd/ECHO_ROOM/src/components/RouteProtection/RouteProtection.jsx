@@ -1,11 +1,12 @@
 import Login from "../../pages/LogIn/Login";
-
+import { useContext } from "react";
+import { UserRoomContext } from "../../Context/RoomContext";
 
 function RouteProtection({children}){
 
-    const token = sessionStorage.getItem("jwt");
+    const {user} = useContext(UserRoomContext);
 
-    if(token != null){
+    if(user != null){
         return (
             <div>
                 { children }

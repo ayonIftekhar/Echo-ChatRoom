@@ -14,6 +14,9 @@ import com.example.EchoRoom.MySqlRepositories.ChatRoomRepository;
 import com.example.EchoRoom.MySqlRepositories.MessageRepository;
 import com.example.EchoRoom.MySqlRepositories.UserRepository;
 import com.example.EchoRoom.SecurityConfiguration.JwtUtility;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -45,13 +48,13 @@ public class UserRequestController {
     @PostMapping("/create-room")
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public ResponseEntity<?> createRoom(@Valid @RequestBody CreateChatRoomRequest request,
-                                        @RequestHeader("Authorization") String authHeader){
+                                        HttpServletRequest httpServletRequest){
 
         if(chatRoomRepository.findByHandle(request.getHandle()).isPresent()){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Handle name already exists!");
         }
-        authHeader = authHeader.substring(7);
-        String email = jwtUtility.extractUserName(authHeader);
+        String token = jwtUtility.extractTokenFromRequest(httpServletRequest);
+        String email = jwtUtility.extractUserName(token);
         UserEntity user = userRepository.findByEmail(email);
 
         ChatRoom newChatRoom = ChatRoom.builder()
@@ -67,7 +70,7 @@ public class UserRequestController {
             chatRoomRepository.save(newChatRoom);
             return ResponseEntity.ok("Room Created Successfully!");
         }catch (Exception e){
-            //e.printStackTrace();
+            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Internal Server Error");
         }
     }
@@ -89,10 +92,10 @@ public class UserRequestController {
 
     @GetMapping("/join-room")
     @PreAuthorize("hasAnyRole('ADMIN','USER')")
-    public ResponseEntity<?> joinRoom(@RequestHeader("Authorization") String auth,
+    public ResponseEntity<?> joinRoom(HttpServletRequest request,
                                       @RequestParam String handle)
     {
-        String token = auth.substring(7);
+        String token = jwtUtility.extractTokenFromRequest(request);
         String email = jwtUtility.extractUserName(token);
         UserEntity user = userRepository.findByEmail(email);
 
@@ -139,10 +142,10 @@ public class UserRequestController {
 
     @GetMapping("/my-rooms")
     @PreAuthorize("hasAnyRole('USER')")
-    public ResponseEntity<?> myChatRooms(@RequestHeader("Authorization") String auth,
+    public ResponseEntity<?> myChatRooms(HttpServletRequest request,
                                          @RequestParam int page){
 
-        String token = auth.substring(7);
+        String token = jwtUtility.extractTokenFromRequest(request);
         String email = jwtUtility.extractUserName(token);
         UserEntity user = userRepository.findByEmail(email);
 
@@ -157,6 +160,7 @@ public class UserRequestController {
             return ResponseEntity.ok(new AllRoomsResponse(page, rooms.isLast(), response));
 
         }catch (Exception e){
+            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Internal Server Error!");
         }
     }
@@ -216,4 +220,19 @@ public class UserRequestController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error Loading message history...");
         }
     }
+
+    @PostMapping("/logout")
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+    public ResponseEntity<?> logOut(HttpServletResponse response){
+        //System.out.println("hiii");
+        Cookie cookie = new Cookie("jwt",null);
+        cookie.setHttpOnly(true);
+        cookie.setSecure(true);
+        cookie.setPath("/");
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+        return ResponseEntity.ok("logged out successfully");
+
+    }
+
 }

@@ -1,9 +1,10 @@
 import { useParams } from "react-router-dom";
 import { Navbar } from "../../../components/Navbar/Navbar";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
 import { getRoomDetails, getRoomTexts } from "../../../BackendAPI/UserBackend";
 import { toast } from "react-toastify";
 import { connectChatRoom, sendMessage } from "../../../ChatSocket/ChatSocket";
+import { UserRoomContext } from "../../../Context/RoomContext";
 
 export function SingleRoom() {
     const { handle } = useParams();
@@ -16,6 +17,8 @@ export function SingleRoom() {
     const messagesContainerRef = useRef(null);
     const topRef = useRef(null);
     let cursor= null;
+
+    const {user} = useContext(UserRoomContext);
 
     async function fetchRoomDetails(){
         try{
@@ -84,7 +87,7 @@ export function SingleRoom() {
 
     const handleSendMessage = () => {
         if (!text.trim()) return;
-        const name = sessionStorage.getItem("name");
+        const name = user.name;
 
         sendMessage(handle, {
             sender: name,

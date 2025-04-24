@@ -2,7 +2,8 @@ import { Client } from "@stomp/stompjs";
 import SockJS from "sockjs-client";
 
 
-const URL = "http://localhost:8080/ws";
+// const URL = "http://localhost:8080/ws";
+const URL = import.meta.env.VITE_WEBSOCKET_URL;
 
 let stompClient = null;
 
