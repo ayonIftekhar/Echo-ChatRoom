@@ -45,7 +45,7 @@ function Login(){
         }
       }
       catch(e){
-        toast.error(e.response.data);
+        toast.success("Please log in first");
       }
     }
 
