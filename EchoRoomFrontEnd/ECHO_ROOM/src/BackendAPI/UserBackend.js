@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = 'http://localhost:8080/user'
+const baseURL = 'https://echo-chatroom.onrender.com/user'
 
 export async function createRoom(room){
     const token = sessionStorage.getItem("jwt");

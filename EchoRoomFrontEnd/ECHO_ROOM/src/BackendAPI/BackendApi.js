@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const baseURL = 'http://localhost:8080/api'
+const baseURL = 'https://echo-chatroom.onrender.com/api'
 
 export async function login(creds){
     const response = await axios.post(baseURL + '/login' , creds , {
