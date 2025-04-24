@@ -33,7 +33,7 @@ export function LogOut(){
             style={{ width: "100px", marginBottom: "20px" }}
           />
 
-          <h2 className="fw-bold mb-3 text-danger">Logging you out...</h2>
+          <h2 className="fw-bold mb-3 text-primary">Logging you out...</h2>
 
           <Spinner animation="border" variant="danger" role="status" />
 
