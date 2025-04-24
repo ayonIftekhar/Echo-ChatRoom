@@ -2,7 +2,7 @@ import { useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserRoomContext } from "../../Context/RoomContext";
 import axios from "axios";
-import { Spinner } from "react-bootstrap";
+
 
 
 export default function OAuthSuccess() {
@@ -38,8 +38,7 @@ export default function OAuthSuccess() {
 
           <h2 className="fw-bold mb-3 text-primary">Logging you in...</h2>
 
-          <Spinner animation="border" variant="primary" role="status" />
-
+          
           <p className="text-muted mt-3">
             Please wait while we fetch your profile and setup your chatroom.
           </p>
