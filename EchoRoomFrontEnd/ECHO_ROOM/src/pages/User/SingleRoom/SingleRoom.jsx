@@ -35,7 +35,6 @@ export function SingleRoom() {
 
   // ✅ Fetch messages for current page / cursor
   async function fetchRoomTexts() {
-    if (loading || last) return;
 
     setLoading(true);
     try {
@@ -48,6 +47,7 @@ export function SingleRoom() {
 
       if (response.status === 200) {
         const newMessages = response.data.messages;
+        console.log(response.data);
 
         if (newMessages.length === 0 || response.data.last === true) {
           setLast(true); // ✅ force end scroll
@@ -89,9 +89,7 @@ export function SingleRoom() {
     const topEl = topRef.current;
     if (topEl) observer.observe(topEl);
 
-    return () => {
-      if (topEl) observer.unobserve(topEl);
-    };
+    return () => observer.disconnect();
   }, [loading, last]);
 
   // ✅ Fetch messages when page changes
