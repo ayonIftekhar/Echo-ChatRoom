@@ -54,7 +54,7 @@ export async function getRoomTexts(handle, page , cursor=null){
     const data = {
         handle : handle,
         page : page,
-        cursor : cursor,
+        time : cursor,
     }   
     const response = await axios.post(`${baseURL}/room-texts`,data,{
         withCredentials:true
