@@ -20,7 +20,7 @@ export function Home(){
             setUser(res.data);
         }catch(err){
             navigate("/login");
-            toast.error(err);
+            console.log(err);
         }
     }
 
