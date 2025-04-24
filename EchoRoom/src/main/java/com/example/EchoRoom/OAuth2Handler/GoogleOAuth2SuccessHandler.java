@@ -48,12 +48,17 @@ public class GoogleOAuth2SuccessHandler implements AuthenticationSuccessHandler 
         // Redirect to frontend
         String jwt = jwtUtility.generateToken(userRepository.findByEmail(email));
 
-        Cookie cookie = new Cookie("jwt", jwt);
-        cookie.setHttpOnly(true);
-        cookie.setSecure(true);
-        cookie.setPath("/");
-        cookie.setMaxAge(24 * 60 * 60);
-        response.addCookie(cookie);
+//        Cookie cookie = new Cookie("jwt", jwt);
+//        cookie.setHttpOnly(true);
+//        cookie.setSecure(true);
+//        cookie.setPath("/");
+//        cookie.set
+//        cookie.setMaxAge(24 * 60 * 60);
+//        response.addCookie(cookie);
+        String cookie = "jwt=" + jwt +
+                "; Path=/; HttpOnly; Secure; SameSite=None; Max-Age=" + (24 * 60 * 60);
+
+        response.setHeader("Set-Cookie", cookie);
 
         response.sendRedirect(BACKEND_ORIGIN+"/oauth-success");
     }
