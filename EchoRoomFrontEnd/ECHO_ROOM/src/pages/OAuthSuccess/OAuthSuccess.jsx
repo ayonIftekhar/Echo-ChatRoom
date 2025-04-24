@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { UserRoomContext } from "../../Context/RoomContext";
 import axios from "axios";
 import { Spinner } from "react-bootstrap";
-import {assets} from "../../assets/assets";
+import assets from "../../assets/assets";
 
 export default function OAuthSuccess() {
     const navigate = useNavigate();
