@@ -40,6 +40,7 @@ function Login(){
         //console.log("hi");
         if(response.status == 200){
           setUser(response.data);
+          console.log(response.data);
           toast.success("logged in successfully!");
           navigate("/");
         }

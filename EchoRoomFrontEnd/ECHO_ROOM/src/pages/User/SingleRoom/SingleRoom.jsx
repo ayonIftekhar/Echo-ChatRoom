@@ -98,7 +98,7 @@ export function SingleRoom() {
     if (!text.trim()) return;
     
     sendMessage(handle, {
-      sender: user.name,
+      sender: user.username,
       content: text,
       roomHandle: room?.handle,
     });
@@ -149,7 +149,7 @@ export function SingleRoom() {
             <div ref={topRef} className="mb-4"></div>
             {messages.map((msg, index) => (
               <div key={index} className="mb-3">
-                <strong className="text-secondary">{user.name}:</strong>{" "}
+                <strong className="text-secondary">{user.username}:</strong>{" "}
                 {msg.content}
               </div>
             ))}
