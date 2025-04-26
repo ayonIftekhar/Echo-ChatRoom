@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -74,11 +75,20 @@ public class AuthenticationController {
             UserEntity userDetails = userRepository.findByEmail(loginRequest.getEmail());
             String token = jwtUtility.generateToken(userDetails);
 
-            Cookie cookie = new Cookie("jwt", token);
-            cookie.setHttpOnly(true);
-            cookie.setPath("/");
-            cookie.setMaxAge(24 * 60 * 60); // 1 day
-            response.addCookie(cookie);
+            ResponseCookie cookie = ResponseCookie.from("jwt", token)
+                    .httpOnly(true)
+                    .secure(true)
+                    .sameSite("None")
+                    .path("/")
+                    .maxAge(60 * 60 * 24)
+                    .build();
+
+//            Cookie cookie = new Cookie("jwt", token);
+//            cookie.setHttpOnly(true);
+//            cookie.setPath("/");
+//            cookie.setMaxAge(24 * 60 * 60); // 1 day
+//            response.addCookie(cookie);
+            response.setHeader("Set-Cookie", cookie.toString());
 
             // ✅ Return only non-sensitive info
             return ResponseEntity.ok(Map.of(

@@ -23,6 +23,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -225,12 +226,22 @@ public class UserRequestController {
     @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<?> logOut(HttpServletResponse response){
         //System.out.println("hiii");
-        Cookie cookie = new Cookie("jwt",null);
-        cookie.setHttpOnly(true);
-        cookie.setSecure(true);
-        cookie.setPath("/");
-        cookie.setMaxAge(0);
-        response.addCookie(cookie);
+//        Cookie cookie = new Cookie("jwt",null);
+//        cookie.setHttpOnly(true);
+//        cookie.setSecure(true);
+//        cookie.setPath("/");
+//        cookie.setMaxAge(0);
+//        response.addCookie(cookie);
+
+        ResponseCookie cookie = ResponseCookie.from("jwt", "")
+                .httpOnly(true)
+                .secure(true)
+                .sameSite("None")
+                .path("/")
+                .maxAge(60 * 60)
+                .build();
+        response.setHeader("Set-Cookie", cookie.toString());
+
         return ResponseEntity.ok("logged out successfully");
 
     }

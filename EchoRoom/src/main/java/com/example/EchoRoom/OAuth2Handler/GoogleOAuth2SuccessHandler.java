@@ -24,6 +24,9 @@ public class GoogleOAuth2SuccessHandler implements AuthenticationSuccessHandler 
     @Value("${frontend.origin}")
     private String FRONT_END_ORIGIN;
 
+    @Value("${backend.origin}")
+    private String BACK_END_ORIGIN;
+
     @Autowired
     private UserRepository userRepository;
 
@@ -65,7 +68,7 @@ public class GoogleOAuth2SuccessHandler implements AuthenticationSuccessHandler 
 //                .build();
 //
 //        response.setHeader("Set-Cookie", cookie.toString());
-        String redirectBridge = "https://echo-chatroom.onrender.com/cookie-bridge?token=" + jwt;
+        String redirectBridge = BACK_END_ORIGIN + "/cookie-bridge?token=" + jwt;
         response.sendRedirect(redirectBridge);
     }
 }
